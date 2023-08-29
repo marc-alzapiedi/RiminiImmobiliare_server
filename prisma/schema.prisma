@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+
+model User {
+    id                 Int             @id @default(autoincrement())
+    username           String          @unique
+    password           String  
+    messages           Messages[] 
+    savedAnnouncement  SavedAnnouncements[]
+    sell               Sell[]
+    valuate            Valuate[]
+    savedSearch        SavedSearches[]
+    hiddenAnnouncement HiddenAnnouncements[]
+    createdAt          DateTime        @default(now())
+    updatedAt          DateTime        @updatedAt
+}
+
+
+model Messages {
+    id            Int              @id @default(autoincrement())
+    message       String
+    name          String
+    email         String
+    phone         String
+    user          User             @relation(fields: [userId], references: [id])
+    userId        Int
+    buy           Buy              @relation(fields: [buyId], references: [id])
+    buyId         Int
+    rent          Rent             @relation(fields: [rentId], references: [id])
+    rentId        Int
+    auction       Auction          @relation(fields: [auctionId], references: [id])
+    auctionId     Int
+    agency        Agency           @relation(fields: [agencyId], references: [id])
+    agencyId      Int
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+
+}
+
+
+model SavedAnnouncements {
+    id            Int             @id @default(autoincrement())
+    email         String
+    user          User             @relation(fields: [userId], references: [id])
+    userId        Int
+    buy           Buy?
+    rent          Rent?
+    auction       Auction?
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+
+}
+
+
+model Sell {
+    id            Int             @id @default(autoincrement())
+    image         String
+    address       String
+    bedrooms      Int
+    sqFootage     Int
+    bathrooms     Int
+    floors        Int
+    user          User             @relation(fields: [userId], references: [id])
+    userId        Int
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+    
+}
+
+
+model Valuate {
+    id            Int             @id @default(autoincrement())
+    user          User            @relation(fields: [userId], references: [id])
+    userId        Int
+    image         String
+    address       String
+    bedrooms      Int
+    sqFootage     Int
+    bathrooms     Int
+    floors        Int
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+    
+}
+
+
+model SavedSearches {
+    id            Int             @id @default(autoincrement())
+    user          User            @relation(fields: [userId], references: [id])
+    userId        Int
+    searchBar     String
+    aquireType    String
+    houseType     String
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+}
+
+
+model HiddenAnnouncements {
+    id            Int             @id @default(autoincrement())
+    user          User            @relation(fields: [userId], references: [id])
+    buy           Buy?
+    rent          Rent?
+    auction       Auction?
+    userId        Int
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+}
+
+model Buy {
+    id               Int             @id @default(autoincrement())
+    messages         Messages[] 
+    savedAnnouncement          SavedAnnouncements?           @relation(fields: [savedAnnouncementId], references: [id])
+    savedAnnouncementId        Int? @unique
+    hiddenAnnouncement          HiddenAnnouncements?          @relation(fields: [hiddenAnnouncementId], references: [id])
+    hiddenAnnouncementId        Int? @unique
+    image            String
+    type             String
+    price            String
+    address          String
+    bedrooms         Int
+    sqFootage        Int
+    bathrooms        Int
+    floors           Int
+    descriptionTitle String
+    description      String
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+
+}
+
+model Rent {
+    id               Int             @id @default(autoincrement())
+    messages         Messages[] 
+    savedAnnouncement          SavedAnnouncements?            @relation(fields: [savedAnnouncementId], references: [id])
+    savedAnnouncementId        Int? @unique
+    hiddenAnnouncement          HiddenAnnouncements?            @relation(fields: [hiddenAnnouncementId], references: [id])
+    hiddenAnnouncementId        Int? @unique
+    image            String
+    type             String
+    price            String
+    address          String
+    bedrooms         Int
+    sqFootage        Int
+    bathrooms        Int
+    floors           Int
+    descriptionTitle String
+    description      String
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+
+}
+
+model Auction {
+    id               Int             @id @default(autoincrement())
+    messages         Messages[] 
+    savedAnnouncement          SavedAnnouncements?            @relation(fields: [savedAnnouncementId], references: [id])
+    savedAnnouncementId        Int? @unique
+    hiddenAnnouncement          HiddenAnnouncements?            @relation(fields: [hiddenAnnouncementId], references: [id])
+    hiddenAnnouncementId        Int? @unique
+    image            String
+    type             String
+    price            String
+    address          String
+    bedrooms         Int
+    sqFootage        Int
+    bathrooms        Int
+    floors           Int
+    descriptionTitle String
+    description      String
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+
+}
+
+model Agency{
+    id               Int             @id @default(autoincrement())
+    messages         Messages[] 
+    image            String
+    name             String
+    address          String
+    history          Int
+    phone            String
+    announcements    Int
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+}
