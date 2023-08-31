@@ -120,7 +120,7 @@ async function seed() {
     for(let i = 0; i < 20; i++){
         await Buy(
             'https://pwm.im-cdn.it/image/1317372740/xxs-c.jpg',
-            'Caponnoni',
+            'Capannoni',
             `€${getRandomInt(50000, 500000).toString()}`,
             'Cupidatat ea duis aliquip magna.',
             getRandomInt(3, 5), 

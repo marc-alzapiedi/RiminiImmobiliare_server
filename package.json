@@ -8,7 +8,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "prepare": "npx husky install",
+    "lint": "eslint src",
+    "migrate": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +22,7 @@
     "@prisma/client": "^4.16.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "morgan": "^1.10.0"
   },
