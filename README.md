@@ -16,7 +16,6 @@ You are going to want to create a new instance by clicking on the top right butt
 ## Setting up the server
 1.  Make sure to fork and clone this repository
 2. In the main directory there should be a file named ```.env.example```. Copy and paste this file, and rename the file by deleting the ```.example``` at the end of the ```.env```.
-![Making .env](<Screenshot 2023-09-12 171313.png>)
 3. Now go back to  [Elephant SQL](https://www.elephantsql.com/) and go to your PRIMARY instance that you just created.
 ![Copy URL](<Screenshot 2023-09-12 165855.png>)
 In the details section, copy the URL and paste it in the ```.env``` file where it says ```YOUR_DATABASE_URL``` make sure you leave the ```?schema=prisma``` at the end. 
