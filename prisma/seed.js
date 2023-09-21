@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 
 async function seed() {
 
-    await createUser( 'student@test.com', 'Testpassword1!')
+    await createUser( 'student@test.com', 'Testpassword1!', 'student', 'test', '1234567891')
 
     for(let i = 0; i < 80; i++){
        await Buy(
@@ -432,13 +432,19 @@ async function seed() {
 }
 
 async function createUser(
-    username,
-    password,
+    email,
+    password, 
+    firstname,
+    lastname,
+    phone
 ){
     const user = await prisma.user.create({
         data: {
-            username,
-            password: await bcrypt.hash(password, 10)
+            email,
+            password: await bcrypt.hash(password, 10),
+            firstname,
+            lastname,
+            phone
         }
     })
 

@@ -8,6 +8,30 @@ import {createNewUser, findUser} from '../domain/user.js'
 const prisma = new PrismaClient()
 const saltRounds = 10
 
+
+
+
+export const getUser = async(req, res) => {
+    const {email} = req.params
+    console.log(email)
+
+    if (email){
+        try{
+            const foundUser = await findUser(email)
+           
+            if(!foundUser) {
+                return sendErrorResponse(res, 404, 'User does not exist')
+            }
+
+            return sendDataResponse(res, 200, foundUser)
+
+        } catch (err) {
+            return sendErrorResponse(res, 500, 'Unable to GET user')
+        }
+
+    }
+}
+
 export const createUser = async(req, res) => {
     console.log(req.body)
     const {email, password} = req.body
@@ -19,7 +43,7 @@ export const createUser = async(req, res) => {
             bcrypt.hash(password, salt, async function (err, hash) {
                 try {
 
-                    const user = createNewUser(username, hash)
+                    const user = await createNewUser(username, hash)
 
                     sendDataResponse(res, 201, {user: user.username,
                     registerStatus: 'User created!'})
@@ -47,7 +71,7 @@ export const loginUser = async(req, res) => {
 
 
         try{
-            const foundUser = findUser(usernameLogin)
+            const foundUser = await findUser(usernameLogin)
             bcrypt.compare(passwordLogin, foundUser.password, async function(err, result) {
                       
                             
