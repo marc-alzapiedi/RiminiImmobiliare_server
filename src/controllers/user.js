@@ -2,7 +2,9 @@ import { PrismaClient } from '@prisma/client'
 import { sendDataResponse, sendErrorResponse } from '../utils/responses.js'
 import { JWT_SECRET, JWT_EXPIRY } from '../utils/config.js'
 import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
+//import bcrypt from 'bcrypt'
+
 import {createNewUser, findUser} from '../domain/user.js'
 
 const prisma = new PrismaClient()
