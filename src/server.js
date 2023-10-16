@@ -6,7 +6,6 @@ import rentRouter from './routes/rent.js'
 import auctionRouter from './routes/aste.js'
 import userRouter from './routes/user.js'
 
-
 const app = express()
 app.disable('x-powered-by')
 app.use(cors())
