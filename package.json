@@ -14,8 +14,7 @@
     "prepare": "npx husky install",
     "lint": "eslint src",
     "migrate": "prisma migrate deploy",
-    "postinstall": "prisma generate",
-    "build": "npm clean-install"
+    "vercel-build": "prisma generate && prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
